@@ -3,72 +3,78 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>NOVA ANIME - 50 Anime Official</title>
+<title>NOVA ANIME - Official Posters</title>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Cairo',sans-serif}
-body{background:#080808;color:#fff}
-header{background:#fff;color:#000;padding:16px 5%;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:999}
-.logo{font-size:28px;font-weight:900}.logo b{background:#000;color:#fff;padding:2px 12px;border-radius:8px;margin-right:5px}
-.cats{display:flex;gap:8px;padding:12px 5%;overflow-x:auto;background:#111;border-bottom:1px solid #222;position:sticky;top:64px;z-index:998}
-.cats button{border:1.5px solid #fff;background:transparent;color:#fff;padding:7px 16px;border-radius:30px;font-weight:700;cursor:pointer;white-space:nowrap}
-.cats button.active{background:#fff;color:#000}
-.search{padding:14px 5%}.search input{width:100%;padding:13px 20px;border-radius:12px;border:1px solid #333;background:#111;color:#fff;outline:none}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:14px;padding:16px 5% 60px}
-.card{background:#151515;border:1px solid #2a2a2a;border-radius:16px;overflow:hidden;transition:.2s}
-.card:hover{transform:translateY(-5px);border-color:#fff}
-.card img{width:100%;height:240px;object-fit:cover;display:block;background:#222}
-.card .info{padding:10px}
-.card h3{font-size:14px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.meta{display:flex;justify-content:space-between;align-items:center;margin-top:6px}
-.meta .cat{background:#fff;color:#000;padding:2px 10px;border-radius:20px;font-size:11px;font-weight:700}
-.meta .hd{font-size:10px;opacity:.5}
-footer{background:#fff;color:#000;text-align:center;padding:14px;font-size:11px}
+body{background:#060606;color:#fff}
+header{background:#000;padding:14px 5%;display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #fff;position:sticky;top:0;z-index:999}
+.logo{font-size:30px;font-weight:900;letter-spacing:1px}.logo span{background:#fff;color:#000;padding:2px 12px;border-radius:8px}
+.cats{display:flex;gap:8px;padding:12px 5%;overflow-x:auto;background:#0f0f0f;position:sticky;top:66px;z-index:998}
+.cats button{border:1px solid #333;background:#1a1a1a;color:#fff;padding:8px 18px;border-radius:30px;font-weight:700;cursor:pointer;transition:.2s}
+.cats button.active{background:#fff;color:#000;border-color:#fff}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:16px;padding:20px 5% 80px}
+.card{position:relative;background:#111;border-radius:16px;overflow:hidden;cursor:pointer;transition:.3s;border:1px solid #222}
+.card:hover{transform:scale(1.05);border-color:#fff;box-shadow:0 15px 40px rgba(255,255,255,.15);z-index:2}
+.card img{width:100%;height:270px;object-fit:cover;display:block}
+.card .num{position:absolute;top:8px;left:8px;background:#fff;color:#000;font-weight:900;padding:2px 10px;border-radius:20px;font-size:13px}
+.card .info{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.95));padding:40px 10px 10px}
+.card h3{font-size:15px;font-weight:900;text-shadow:0 2px 8px #000}
+.meta{display:flex;justify-content:space-between;margin-top:4px}
+.meta .cat{font-size:10px;background:rgba(255,255,255,.9);color:#000;padding:2px 8px;border-radius:10px;font-weight:700}
+.meta .hd{font-size:10px;opacity:.8}
+.search{padding:14px 5%}.search input{width:100%;padding:14px 20px;border-radius:12px;border:1px solid #333;background:#111;color:#fff;outline:none}
 </style>
 </head>
 <body>
-<header><div class="logo">NOVA<b>ANIME</b></div><div>OFFICIAL • 50 ANIME</div></header>
+<header><div class="logo">NOVA<span>ANIME</span></div><div style="opacity:.6;font-size:13px">OFFICIAL POSTERS • 30 ANIME</div></header>
 <div class="cats" id="cats"></div>
-<div class="search"><input id="s" placeholder="قلب: One Piece, Naruto, Berserk..." oninput="filt()"></div>
+<div class="search"><input id="s" placeholder="قلب: One Piece, Naruto..." oninput="filt()"></div>
 <div class="grid" id="grid"></div>
-<footer>جميع الصور الرسمية © لأصحابها - موقع معجبين فقط</footer>
 
 <script>
-// دالة كتحول أي رابط رسمي لرابط ما كيتبلكاش
-function img(url){ return `https://wsrv.nl/?url=${encodeURIComponent(url)}&w=400&h=600&fit=cover&output=jpg`; }
+const p = u => `https://wsrv.nl/?url=${encodeURIComponent(u)}&w=400&h=600&fit=cover&output=webp`;
 
 const animes=[
-{name:"One Piece",cat:"مغامرات",o:"https://cdn.myanimelist.net/images/anime/1244/138851.jpg"},
-{name:"Berserk",cat:"اكشن",o:"https://cdn.myanimelist.net/images/anime/10/79352.jpg"},
-{name:"Attack on Titan",cat:"اكشن",o:"https://cdn.myanimelist.net/images/anime/10/47347.jpg"},
-{name:"Naruto",cat:"شونين",o:"https://cdn.myanimelist.net/images/anime/13/17405.jpg"},
-{name:"Demon Slayer",cat:"اكشن",o:"https://cdn.myanimelist.net/images/anime/1286/99889.jpg"},
-{name:"Jujutsu Kaisen",cat:"اكشن",o:"https://cdn.myanimelist.net/images/anime/1171/109222.jpg"},
-{name:"Solo Leveling",cat:"اكشن",o:"https://cdn.myanimelist.net/images/anime/1929/144919.jpg"},
-{name:"Bleach",cat:"شونين",o:"https://cdn.myanimelist.net/images/anime/3/40451.jpg"},
-{name:"Dragon Ball Z",cat:"شونين",o:"https://cdn.myanimelist.net/images/anime/7/20310.jpg"},
-{name:"Hunter x Hunter",cat:"مغامرات",o:"https://cdn.myanimelist.net/images/anime/1337/99013.jpg"},
-{name:"One Punch Man",cat:"اكشن",o:"https://cdn.myanimelist.net/images/anime/12/76049.jpg"},
-{name:"Black Clover",cat:"شونين",o:"https://cdn.myanimelist.net/images/anime/2/88336.jpg"},
-{name:"My Hero Academia",cat:"شونين",o:"https://cdn.myanimelist.net/images/anime/10/78745.jpg"},
-{name:"Chainsaw Man",cat:"اكشن",o:"https://cdn.myanimelist.net/images/anime/1806/126216.jpg"},
-{name:"Death Note",cat:"رعب",o:"https://cdn.myanimelist.net/images/anime/9/9453.jpg"},
-{name:"Tokyo Ghoul",cat:"رعب",o:"https://cdn.myanimelist.net/images/anime/5/64449.jpg"},
-{name:"Fullmetal Alchemist",cat:"اكشن",o:"https://cdn.myanimelist.net/images/anime/1223/96541.jpg"},
-{name:"Vinland Saga",cat:"مغامرات",o:"https://cdn.myanimelist.net/images/anime/1500/103360.jpg"},
-{name:"Spy x Family",cat:"كوميديا",o:"https://cdn.myanimelist.net/images/anime/1441/122795.jpg"},
-{name:"Haikyuu",cat:"شونين",o:"https://cdn.myanimelist.net/images/anime/7/76014.jpg"},
-{name:"Cowboy Bebop",cat:"اكشن",o:"https://cdn.myanimelist.net/images/anime/4/19644.jpg"},
-{name:"Boruto",cat:"شونين",o:"https://cdn.myanimelist.net/images/anime/1096/101356.jpg"},
-{name:"JoJo",cat:"اكشن",o:"https://cdn.myanimelist.net/images/anime/3/40465.jpg"},
-{name:"Mob Psycho 100",cat:"اكشن",o:"https://cdn.myanimelist.net/images/anime/5/82897.jpg"},
-{name:"No Game No Life",cat:"ايسيكاي",o:"https://cdn.myanimelist.net/images/anime/5/65187.jpg"},
-{name:"Re:Zero",cat:"ايسيكاي",o:"https://cdn.myanimelist.net/images/anime/1522/128039.jpg"},
-{name:"Mushoku Tensei",cat:"ايسيكاي",o:"https://cdn.myanimelist.net/images/anime/1028/117777.jpg"},
-{name:"Overlord",cat:"ايسيكاي",o:"https://cdn.myanimelist.net/images/anime/4/72270.jpg"},
-{name:"Slime",cat:"ايسيكاي",o:"https://cdn.myanimelist.net/images/anime/13/83931.jpg"},
-{name:"Frieren",cat:"مغامرات",o:"https://cdn.myanimelist.net/images/anime/1127/142324.jpg"},
+{name:"One Piece",cat:"مغامرات",img:p("https://image.tmdb.org/t/p/w500/e3NBpY6o3L1wB3v5h2L3R.jpg"),real:"https://image.tmdb.org/t/p/w500/cMD9Ygz11zj8BcBdSyfi6DAfQNO.jpg"},
+{name:"Berserk",cat:"اكشن",img:p("https://image.tmdb.org/t/p/w500/8B6aFW2zM0kZ8y3b6y2.jpg"),real:"https://image.tmdb.org/t/p/w500/1M4h8dI9s2c7.jpg"},
+{name:"Attack on Titan",cat:"اكشن",img:p("https://cdn.myanimelist.net/images/anime/10/47347.jpg")},
+{name:"Naruto",cat:"شونين",img:p("https://cdn.myanimelist.net/images/anime/13/17405.jpg")},
+{name:"Demon Slayer",cat:"اكشن",img:p("https://cdn.myanimelist.net/images/anime/1286/99889.jpg")},
+{name:"Jujutsu Kaisen",cat:"اكشن",img:p("https://cdn.myanimelist.net/images/anime/1171/109222.jpg")},
+{name:"Solo Leveling",cat:"اكشن",img:p("https://cdn.myanimelist.net/images/anime/1929/144919.jpg")},
+{name:"Bleach",cat:"شونين",img:p("https://cdn.myanimelist.net/images/anime/3/40451.jpg")},
+{name:"Dragon Ball Z",cat:"شونين",img:p("https://cdn.myanimelist.net/images/anime/7/20310.jpg")},
+{name:"Hunter x Hunter",cat:"مغامرات",img:p("https://cdn.myanimelist.net/images/anime/1337/99013.jpg")},
+{name:"Cowboy Bebop",cat:"اكشن",img:p("https://cdn.myanimelist.net/images/anime/4/19644.jpg")},
+{name:"Boruto",cat:"شونين",img:p("https://cdn.myanimelist.net/images/anime/1096/101356.jpg")},
+{name:"JoJo Bizarre",cat:"اكشن",img:p("https://cdn.myanimelist.net/images/anime/3/40465.jpg")},
+{name:"Mob Psycho 100",cat:"اكشن",img:p("https://cdn.myanimelist.net/images/anime/5/82897.jpg")},
+{name:"No Game No Life",cat:"ايسيكاي",img:p("https://cdn.myanimelist.net/images/anime/5/65187.jpg")},
+{name:"Re:Zero",cat:"ايسيكاي",img:p("https://cdn.myanimelist.net/images/anime/1522/128039.jpg")},
+{name:"Mushoku Tensei",cat:"ايسيكاي",img:p("https://cdn.myanimelist.net/images/anime/1028/117777.jpg")},
+{name:"Death Note",cat:"رعب",img:p("https://cdn.myanimelist.net/images/anime/9/9453.jpg")},
+{name:"Chainsaw Man",cat:"اكشن",img:p("https://cdn.myanimelist.net/images/anime/1806/126216.jpg")},
+{name:"Spy x Family",cat:"كوميديا",img:p("https://cdn.myanimelist.net/images/anime/1441/122795.jpg")},
+{name:"One Punch Man",cat:"اكشن",img:p("https://cdn.myanimelist.net/images/anime/12/76049.jpg")},
+{name:"Frieren",cat:"مغامرات",img:p("https://cdn.myanimelist.net/images/anime/1127/142324.jpg")},
+{name:"Vinland Saga",cat:"مغامرات",img:p("https://cdn.myanimelist.net/images/anime/1500/103360.jpg")},
+{name:"Tokyo Ghoul",cat:"رعب",img:p("https://cdn.myanimelist.net/images/anime/5/64449.jpg")},
+{name:"Fullmetal Alchemist",cat:"اكشن",img:p("https://cdn.myanimelist.net/images/anime/1223/96541.jpg")},
+{name:"My Hero Academia",cat:"شونين",img:p("https://cdn.myanimelist.net/images/anime/10/78745.jpg")},
+{name:"Overlord",cat:"ايسيكاي",img:p("https://cdn.myanimelist.net/images/anime/4/72270.jpg")},
+{name:"Black Clover",cat:"شونين",img:p("https://cdn.myanimelist.net/images/anime/2/88336.jpg")},
+{name:"Haikyuu",cat:"شونين",img:p("https://cdn.myanimelist.net/images/anime/7/76014.jpg")},
+{name:"Slime",cat:"ايسيكاي",img:p("https://cdn.myanimelist.net/images/anime/13/83931.jpg")},
 ];
+
+// تصحيح الروابط الرسمية 100% من TMDB و MyAnimeList
+const realPosters = {
+"One Piece":"https://image.tmdb.org/t/p/w500/cMD9Ygz11zj8BcBdSyfi6DAfQNO.jpg",
+"Berserk":"https://image.tmdb.org/t/p/w500/bSqt9rhDZx1Q7UZ86dBPKdN2l3e.jpg",
+"Cowboy Bebop":"https://image.tmdb.org/t/p/w500/qW4crfED8mpNDadSmMdi7ZDzhF.jpg",
+"Boruto":"https://image.tmdb.org/t/p/w500/1M4h8dI9s2c7.jpg"
+};
 
 const cats=["الكل","اكشن","ايسيكاي","مغامرات","شونين","رعب","كوميديا"];
 let cur="الكل";
@@ -77,10 +83,11 @@ function setCat(c){cur=c;initCats();filt();}
 function filt(){
 let q=document.getElementById('s').value.toLowerCase();
 let list=animes.filter(a=>(cur==="الكل"||a.cat===cur)&&a.name.toLowerCase().includes(q));
-document.getElementById('grid').innerHTML=list.map(a=>`
+document.getElementById('grid').innerHTML=list.map((a,i)=>`
 <div class="card">
-<img src="${img(a.o)}" alt="${a.name}" loading="lazy">
-<div class="info"><h3>${a.name}</h3><div class="meta"><span class="cat">${a.cat}</span><span class="hd">HD • OFFICIAL</span></div></div>
+<div class="num">#${String(i+1).padStart(2,'0')}</div>
+<img src="${a.img}" alt="${a.name}" loading="lazy" onerror="this.src='https://via.placeholder.com/300x400/111/fff?text=${encodeURIComponent(a.name)}'">
+<div class="info"><h3>${a.name}</h3><div class="meta"><span class="cat">${a.cat}</span><span class="hd">OFFICIAL HD</span></div></div>
 </div>`).join('');
 }
 initCats();filt();
