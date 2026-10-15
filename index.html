@@ -20,7 +20,7 @@ const animes=[
 {name:"Wind Breaker",img:"https://cdn.myanimelist.net/images/anime/1022/141411.jpg",desc:"مدرسة جانحين تحمي مدينتها بقبضاتها.",rate:"⭐ 7.7"},
 {name:"Fairy Tail",img:"https://cdn.myanimelist.net/images/anime/5/18179.jpg",desc:"نقابة سحرة يخوضون مغامرات مجنونة.",rate:"⭐ 7.9"},
 {name:"Boruto",img:"https://cdn.myanimelist.net/images/anime/6/82899.jpg",desc:"ابن ناروتو يحاول اثبات نفسه.",rate:"⭐ 6.9"}
-];
+{name:"Berserk",img:"https://cdn.myanimelist.net/images/anime/1384/121669.jpg",desc:"غاتس المحارب الأسود ينتقم من صديقه غريفيث في عالم مظلم مليء بالشياطين.",rate:"⭐ 8.7"},
 function render(list){const g=document.getElementById('grid');g.innerHTML='';list.forEach((a,i)=>{g.innerHTML+=`<div class="card" onclick="openM(${i})"><img src="${a.img}"><div class="info"><h4>${a.name}</h4><p>${a.desc}</p><span class="tag">${a.rate}</span></div></div>`})}
 let currentList=animes;
 function filterA(){const q=document.getElementById('s').value.toLowerCase();currentList=animes.filter(a=>a.name.toLowerCase().includes(q));render(currentList)}
