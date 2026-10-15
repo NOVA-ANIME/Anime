@@ -1,101 +1,59 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>NOVA ANIME - 50 انمي</title>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&display=swap" rel="stylesheet">
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Cairo',sans-serif}
-body{background:#070710;color:#fff}
-header{padding:14px 4%;display:flex;justify-content:space-between;background:#10101a;border-bottom:1px solid #222;position:sticky;top:0;z-index:10}
-.logo{font-size:24px;font-weight:900}.logo b{color:#a78bfa}
-.search{width:92%;margin:18px auto;display:flex;background:#15151f;border:1px solid #2a2a3a;border-radius:30px;padding:12px 20px}
-.search input{flex:1;background:transparent;border:none;color:#fff;outline:none;font-size:15px}
-.grid{width:92%;margin:auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px;padding-bottom:50px}
-.card{background:#12121e;border-radius:16px;overflow:hidden;border:1px solid #1f1f33;cursor:pointer;transition:.3s}
-.card:hover{transform:translateY(-5px);border-color:#a78bfa}
-.card img{width:100%;height:230px;object-fit:cover}
-.info{padding:10px}.info h4{font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.info p{font-size:11px;opacity:.6;margin-top:4px;height:34px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
-.tag{background:#a78bfa;color:#000;font-size:10px;padding:2px 8px;border-radius:20px;display:inline-block;margin-top:6px;font-weight:700}
-#player{position:fixed;inset:0;background:rgba(0,0,0,.92);display:none;align-items:center;justify-content:center;z-index:999;padding:15px}
-#player.active{display:flex}
-.box{width:100%;max-width:800px;background:#151525;border-radius:16px;overflow:hidden}
-.box iframe{width:100%;height:420px;border:none}
-</style>
-</head>
-<body>
-<header><div class="logo">NOVA<b>.ANIME</b></div><div>🔥 50 انمي</div></header>
-<div class="search"><input id="s" placeholder="قلب على انمي..." oninput="filterA()"><span>🔍</span></div>
-<div class="grid" id="grid"></div>
-<div id="player" onclick="closeP()"><div class="box" onclick="event.stopPropagation()"><iframe id="vid" src="" allowfullscreen></iframe><div style="padding:14px;display:flex;justify-content:space-between;align-items:center"><h3 id="t"></h3><button onclick="closeP()" style="background:#a78bfa;border:none;padding:6px 14px;border-radius:8px;cursor:pointer;font-weight:700">اغلاق</button></div></div></div>
-
-<script>
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>NOVA ANIME</title><link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&display=swap" rel="stylesheet"><style>*{margin:0;padding:0;box-sizing:border-box;font-family:'Cairo',sans-serif}body{background:#08080f;color:#fff}header{padding:15px 4%;display:flex;justify-content:space-between;align-items:center;background:#0f0f17;border-bottom:1px solid #222}.logo{font-size:26px;font-weight:900}.logo b{color:#a78bfa}.search{width:92%;margin:20px auto;display:flex;background:#15151f;border:1px solid #333;border-radius:30px;padding:12px 20px}.search input{flex:1;background:transparent;border:none;color:#fff;outline:none;font-size:16px}.grid{width:92%;margin:20px auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px;padding-bottom:50px}.card{background:#12121a;border-radius:14px;overflow:hidden;border:1px solid #1e1e2e;cursor:pointer;transition:0.3s}.card:hover{transform:scale(1.05);border-color:#a78bfa}.card img{width:100%;height:220px;object-fit:cover}.card h4{padding:10px;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:center}#player{position:fixed;inset:0;background:rgba(0,0,0,0.9);display:none;align-items:center;justify-content:center;z-index:999;padding:20px}#player.active{display:flex}.box{width:100%;max-width:800px;background:#111;border-radius:15px;overflow:hidden}.box iframe{width:100%;height:450px;border:none}</style></head><body><header><div class="logo">NOVA<b>.ANIME</b></div><div>🔥 50 انمي مشهور</div></header><div class="search"><input id="s" placeholder="ابحث عن اي انمي..." oninput="filter()"><span>🔍</span></div><div class="grid" id="grid"></div><div id="player" onclick="closeP()"><div class="box" onclick="event.stopPropagation()"><iframe id="vid" src="" allowfullscreen></iframe><div style="padding:12px;display:flex;justify-content:space-between"><h3 id="t"></h3><button onclick="closeP()" style="background:#a78bfa;border:none;padding:6px 15px;border-radius:8px;cursor:pointer">اغلاق</button></div></div></div><script>
 const animes=[
-{name:"One Piece",img:"https://cdn.myanimelist.net/images/anime/6/73245.jpg",desc:"مغامرة لوفي للوصول للون بيس."},
-{name:"Berserk",img:"https://cdn.myanimelist.net/images/anime/1384/121669.jpg",desc:"غاتس ينتقم في عالم من الشياطين والظلام."},
-{name:"Boruto",img:"https://cdn.myanimelist.net/images/anime/1096/136029.jpg",desc:"ابن ناروتو يشق طريقه الخاص."},
-{name:"Attack on Titan",img:"https://cdn.myanimelist.net/images/anime/10/47347.jpg",desc:"البشرية ضد العمالقة."},
-{name:"Naruto",img:"https://cdn.myanimelist.net/images/anime/13/17405.jpg",desc:"ناروتو يحلم بأن يصبح الهوكاجي."},
-{name:"Demon Slayer",img:"https://cdn.myanimelist.net/images/anime/1286/99889.jpg",desc:"تانجيرو يقاتل الشياطين."},
-{name:"Jujutsu Kaisen",img:"https://cdn.myanimelist.net/images/anime/1792/138022.jpg",desc:"عالم اللعنات والجوجوتسو."},
-{name:"Solo Leveling",img:"https://cdn.myanimelist.net/images/anime/1925/140553.jpg",desc:"من أضعف صياد الى الأقوى."},
-{name:"Death Note",img:"https://cdn.myanimelist.net/images/anime/9/9453.jpg",desc:"مذكرة الموت."},
-{name:"One Punch Man",img:"https://cdn.myanimelist.net/images/anime/12/76049.jpg",desc:"بطل يهزم الكل بلكمة واحدة."},
-{name:"Hunter x Hunter",img:"https://cdn.myanimelist.net/images/anime/11/33657.jpg",desc:"غون يبحث عن ابيه."},
-{name:"Bleach",img:"https://cdn.myanimelist.net/images/anime/1908/135431.jpg",desc:"ايتشيغو يصبح شينيغامي."},
-{name:"Dragon Ball Z",img:"https://cdn.myanimelist.net/images/anime/6/20936.jpg",desc:"غوكو يحمي الأرض."},
-{name:"My Hero Academia",img:"https://cdn.myanimelist.net/images/anime/10/78745.jpg",desc:"عالم الأبطال الخارقين."},
-{name:"Chainsaw Man",img:"https://cdn.myanimelist.net/images/anime/1806/126216.jpg",desc:"دينجي يتحول لمنشار."},
-{name:"Spy x Family",img:"https://cdn.myanimelist.net/images/anime/1441/122444.jpg",desc:"عائلة جاسوس مزيفة."},
-{name:"Frieren",img:"https://cdn.myanimelist.net/images/anime/1015/138006.jpg",desc:"رحلة ما بعد هزيمة ملك الشياطين."},
-{name:"Tokyo Ghoul",img:"https://cdn.myanimelist.net/images/anime/11/70410.jpg",desc:"كانيكي يصبح نصف غول."},
-{name:"Black Clover",img:"https://cdn.myanimelist.net/images/anime/2/88336.jpg",desc:"استا بلا سحر يصبح ملك السحرة."},
-{name:"Vinland Saga",img:"https://cdn.myanimelist.net/images/anime/1500/103005.jpg",desc:"ثورفين وانتقام الفايكنغ."},
-{name:"Kaiju No 8",img:"https://cdn.myanimelist.net/images/anime/1976/143678.jpg",desc:"يتحول الى وحش كايجو."},
-{name:"Dandadan",img:"https://cdn.myanimelist.net/images/anime/1406/150491.jpg",desc:"أشباح وفضائيين."},
-{name:"Mashle",img:"https://cdn.myanimelist.net/images/anime/1584/143719.jpg",desc:"سحر بالعضلات فقط."},
-{name:"Blue Lock",img:"https://cdn.myanimelist.net/images/anime/1445/122485.jpg",desc:"مشروع لأفضل مهاجم."},
-{name:"Haikyuu",img:"https://cdn.myanimelist.net/images/anime/7/76014.jpg",desc:"الكرة الطائرة."},
-{name:"Fairy Tail",img:"https://cdn.myanimelist.net/images/anime/5/18179.jpg",desc:"نقابة السحرة."},
-{name:"Gintama",img:"https://cdn.myanimelist.net/images/anime/3/72078.jpg",desc:"ساموراي كوميدي."},
-{name:"Code Geass",img:"https://cdn.myanimelist.net/images/anime/5/50331.jpg",desc:"لولوش وقوة الغياس."},
-{name:"Steins Gate",img:"https://cdn.myanimelist.net/images/anime/5/73199.jpg",desc:"السفر عبر الزمن."},
-{name:"Oshi No Ko",img:"https://cdn.myanimelist.net/images/anime/1812/134736.jpg",desc:"عالم الأيدولز المظلم."},
-{name:"Horimiya",img:"https://cdn.myanimelist.net/images/anime/1246/113231.jpg",desc:"رومانسية مدرسية."},
-{name:"Your Name",img:"https://cdn.myanimelist.net/images/anime/5/87048.jpg",desc:"تبادل الأجساد."},
-{name:"Wind Breaker",img:"https://cdn.myanimelist.net/images/anime/1022/141411.jpg",desc:"مدرسة المقاتلين."},
-{name:"Slime Tensei",img:"https://cdn.myanimelist.net/images/anime/1694/93337.jpg",desc:"ولد كسلايم."},
-{name:"Fire Force",img:"https://cdn.myanimelist.net/images/anime/1670/103519.jpg",desc:"فرقة اطفاء النيران."},
-{name:"Mob Psycho",img:"https://cdn.myanimelist.net/images/anime/8/80356.jpg",desc:"قوى نفسية خارقة."},
-{name:"Dr Stone",img:"https://cdn.myanimelist.net/images/anime/1663/102030.jpg",desc:"العلم يعيد الحضارة."},
-{name:"Overlord",img:"https://cdn.myanimelist.net/images/anime/7/88019.jpg",desc:"سيد الظلام داخل لعبة."},
-{name:"Classroom of Elite",img:"https://cdn.myanimelist.net/images/anime/1498/134443.jpg",desc:"مدرسة النخبة."},
-{name:"Detective Conan",img:"https://cdn.myanimelist.net/images/anime/7/75199.jpg",desc:"المحقق الصغير."},
-{name:"Sword Art Online",img:"https://cdn.myanimelist.net/images/anime/11/39717.jpg",desc:"عالق في لعبة موت."},
-{name:"Evangelion",img:"https://cdn.myanimelist.net/images/anime/1314/108941.jpg",desc:"روبوتات ضد الملائكة."},
-{name:"A Silent Voice",img:"https://cdn.myanimelist.net/images/anime/3/85215.jpg",desc:"قصة تكفير عن التنمر."},
-{name:"Tokyo Revengers",img:"https://cdn.myanimelist.net/images/anime/6/110771.jpg",desc:"السفر للماضي لانقاذ الحبيبة."},
-{name:"Re:Zero",img:"https://cdn.myanimelist.net/images/anime/1522/128039.jpg",desc:"العودة بالموت."},
-{name:"Fullmetal Alchemist",img:"https://cdn.myanimelist.net/images/anime/1208/94745.jpg",desc:"الأخوان الكيميائيان."},
-{name:"One Piece Film Red",img:"https://cdn.myanimelist.net/images/anime/6/73245.jpg",desc:"فيلم شانكس وابنته اوتا."},
-{name:"Naruto Shippuden",img:"https://cdn.myanimelist.net/images/anime/5/17407.jpg",desc:"ناروتو البالغ."},
-{name:"Dragon Ball Super",img:"https://cdn.myanimelist.net/images/anime/18/51557.jpg",desc:"مستويات قوة جديدة."},
-{name:"Bleach TYBW",img:"https://cdn.myanimelist.net/images/anime/1908/135431.jpg",desc:"حرب الألف سنة الدموية."}
+{name:"One Piece",img:"https://cdn.myanimelist.net/images/anime/6/73245.jpg"},
+{name:"Attack on Titan",img:"https://cdn.myanimelist.net/images/anime/10/47347.jpg"},
+{name:"Naruto",img:"https://cdn.myanimelist.net/images/anime/5/17407.jpg"},
+{name:"Demon Slayer",img:"https://cdn.myanimelist.net/images/anime/1286/99889.jpg"},
+{name:"Jujutsu Kaisen",img:"https://cdn.myanimelist.net/images/anime/1792/138022.jpg"},
+{name:"Solo Leveling",img:"https://cdn.myanimelist.net/images/anime/1925/140553.jpg"},
+{name:"Frieren",img:"https://cdn.myanimelist.net/images/anime/1015/138006.jpg"},
+{name:"Death Note",img:"https://cdn.myanimelist.net/images/anime/9/9453.jpg"},
+{name:"Dragon Ball Z",img:"https://cdn.myanimelist.net/images/anime/6/20936.jpg"},
+{name:"Bleach",img:"https://cdn.myanimelist.net/images/anime/1908/135431.jpg"},
+{name:"Hunter x Hunter",img:"https://cdn.myanimelist.net/images/anime/11/33657.jpg"},
+{name:"Fullmetal Alchemist",img:"https://cdn.myanimelist.net/images/anime/1208/94745.jpg"},
+{name:"One Punch Man",img:"https://cdn.myanimelist.net/images/anime/12/76049.jpg"},
+{name:"My Hero Academia",img:"https://cdn.myanimelist.net/images/anime/10/78745.jpg"},
+{name:"Tokyo Ghoul",img:"https://cdn.myanimelist.net/images/anime/11/70410.jpg"},
+{name:"Black Clover",img:"https://cdn.myanimelist.net/images/anime/2/88336.jpg"},
+{name:"Chainsaw Man",img:"https://cdn.myanimelist.net/images/anime/1806/126216.jpg"},
+{name:"Spy x Family",img:"https://cdn.myanimelist.net/images/anime/1441/122444.jpg"},
+{name:"Vinland Saga",img:"https://cdn.myanimelist.net/images/anime/1500/103005.jpg"},
+{name:"Tokyo Revengers",img:"https://cdn.myanimelist.net/images/anime/6/110771.jpg"},
+{name:"Kaiju No.8",img:"https://cdn.myanimelist.net/images/anime/1976/143678.jpg"},
+{name:"Dandadan",img:"https://cdn.myanimelist.net/images/anime/1406/150491.jpg"},
+{name:"Mashle",img:"https://cdn.myanimelist.net/images/anime/1584/143719.jpg"},
+{name:"Blue Lock",img:"https://cdn.myanimelist.net/images/anime/1445/122485.jpg"},
+{name:"Haikyuu",img:"https://cdn.myanimelist.net/images/anime/7/76014.jpg"},
+{name:"Dr Stone",img:"https://cdn.myanimelist.net/images/anime/1663/102030.jpg"},
+{name:"Fire Force",img:"https://cdn.myanimelist.net/images/anime/1670/103519.jpg"},
+{name:"Mob Psycho 100",img:"https://cdn.myanimelist.net/images/anime/8/80356.jpg"},
+{name:"Overlord",img:"https://cdn.myanimelist.net/images/anime/7/88019.jpg"},
+{name:"Re:Zero",img:"https://cdn.myanimelist.net/images/anime/1522/128039.jpg"},
+{name:"Steins Gate",img:"https://cdn.myanimelist.net/images/anime/5/73199.jpg"},
+{name:"Code Geass",img:"https://cdn.myanimelist.net/images/anime/5/50331.jpg"},
+{name:"Oshi No Ko",img:"https://cdn.myanimelist.net/images/anime/1812/134736.jpg"},
+{name:"Slime Tensei",img:"https://cdn.myanimelist.net/images/anime/1694/93337.jpg"},
+{name:"Sword Art Online",img:"https://cdn.myanimelist.net/images/anime/11/39717.jpg"},
+{name:"Detective Conan",img:"https://cdn.myanimelist.net/images/anime/7/75199.jpg"},
+{name:"Fairy Tail",img:"https://cdn.myanimelist.net/images/anime/5/18179.jpg"},
+{name:"Boruto",img:"https://cdn.myanimelist.net/images/anime/6/82899.jpg"},
+{name:"Gintama",img:"https://cdn.myanimelist.net/images/anime/3/72078.jpg"},
+{name:"Wind Breaker",img:"https://cdn.myanimelist.net/images/anime/1022/141411.jpg"},
+{name:"Classroom of Elite",img:"https://cdn.myanimelist.net/images/anime/1498/134443.jpg"},
+{name:"Horimiya",img:"https://cdn.myanimelist.net/images/anime/1246/113231.jpg"},
+{name:"Your Name",img:"https://cdn.myanimelist.net/images/anime/5/87048.jpg"},
+{name:"A Silent Voice",img:"https://cdn.myanimelist.net/images/anime/3/85215.jpg"},
+{name:"Naruto Shippuden",img:"https://cdn.myanimelist.net/images/anime/5/17407.jpg"},
+{name:"Dragon Ball Super",img:"https://cdn.myanimelist.net/images/anime/6/20936.jpg"},
+{name:"One Piece Red",img:"https://cdn.myanimelist.net/images/anime/6/73245.jpg"},
+{name:"Demon Slayer Movie",img:"https://cdn.myanimelist.net/images/anime/1286/99889.jpg"},
+{name:"Berserk",img:"https://cdn.myanimelist.net/images/anime/11/33657.jpg"},
+{name:"Evangelion",img:"https://cdn.myanimelist.net/images/anime/1314/108941.jpg"}
 ];
-
-function render(list){
-const g=document.getElementById('grid');
-g.innerHTML='';
-list.forEach(a=>{
-g.innerHTML+=`<div class="card" onclick="play('${a.name}')"><img src="${a.img}" loading="lazy"><div class="info"><h4>${a.name}</h4><p>${a.desc}</p><span class="tag">HD</span></div></div>`
-});
-}
-function filterA(){const q=document.getElementById('s').value.toLowerCase();render(animes.filter(a=>a.name.toLowerCase().includes(q)))}
+function render(list){const g=document.getElementById('grid');g.innerHTML='';list.forEach(a=>{g.innerHTML+=`<div class="card" onclick="play('${a.name}')"><img src="${a.img}"><h4>${a.name}</h4></div>`})}
+function filter(){const q=document.getElementById('s').value.toLowerCase();render(animes.filter(a=>a.name.toLowerCase().includes(q)))}
 function play(t){document.getElementById('player').classList.add('active');document.getElementById('t').innerText=t;document.getElementById('vid').src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1"}
 function closeP(){document.getElementById('player').classList.remove('active');document.getElementById('vid').src=""}
 render(animes);
-</script>
-</body>
-</html>
+</script></body></html>
