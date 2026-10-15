@@ -3,21 +3,51 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="NOVA ANIME - شاهد 50 انمي مشهور بجودة عالية">
-<meta name="robots" content="index, follow"><meta name="keywords" content="انمي, anime, berserk, boruto, one piece, naruto">
-<meta property="og:title" content="NOVA ANIME">
-<meta property="og:description" content="شاهد افضل 50 انمي">
-<title>NOVA ANIME - 50 انمي</title>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&display=swap" rel="stylesheet">
-<style>*{margin:0;padding:0;box-sizing:border-box;font-family:'Cairo',sans-serif}body{background:#070710;color:#fff}header{padding:14px 4%;display:flex;justify-content:space-between;background:#10101a;border-bottom:1px solid #222;position:sticky;top:0;z-index:10}.logo{font-size:24px;font-weight:900}.logo b{color:#a78bfa}.search{width:92%;margin:18px auto;display:flex;background:#15151f;border:1px solid #2a2a3a;border-radius:30px;padding:12px 20px}.search input{flex:1;background:transparent;border:none;color:#fff;outline:none}.grid{width:92%;margin:auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px;padding-bottom:50px}.card{background:#12121e;border-radius:16px;overflow:hidden;border:1px solid #1f1f33;cursor:pointer}.card img{width:100%;height:230px;object-fit:cover}.info{padding:10px}.info h4{font-size:13px}.info p{font-size:11px;opacity:.6}.tag{background:#a78bfa;color:#000;font-size:10px;padding:2px 8px;border-radius:20px}</style>
+<meta name="description" content="NOVA ANIME - 50 انمي مشهور - اكشن ايسيكاي مغامرات">
+<title>NOVA ANIME - 50 انمي مشهور</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Cairo',sans-serif}
+body{background:#050505;color:#fff}
+header{background:#fff;color:#000;padding:18px 5%;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:999;border-bottom:4px solid #000}
+.logo{font-size:32px;font-weight:900} .logo b{background:#000;color:#fff;padding:0 10px;border-radius:8px}
+.hero{background:#fff;color:#000;padding:60px 5%;text-align:center}
+.hero h1{font-size:48px;font-weight:900} .hero p{margin-top:10px;font-size:18px;opacity:.7}
+.cats{display:flex;gap:10px;padding:18px 5%;overflow-x:auto;background:#0a0a0a;border-bottom:1px solid #222;position:sticky;top:74px;z-index:998}
+.cats button{border:1.5px solid #fff;background:transparent;color:#fff;padding:10px 22px;border-radius:30px;font-weight:700;cursor:pointer;white-space:nowrap;transition:.2s}
+.cats button.active,.cats button:hover{background:#fff;color:#000}
+.search{padding:20px 5%} .search input{width:100%;padding:16px 22px;border-radius:14px;border:1.5px solid #333;background:#111;color:#fff;outline:none;font-size:15px}
+.search input:focus{border-color:#fff}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:20px;padding:20px 5% 80px}
+.card{background:#111;border:1px solid #222;border-radius:16px;overflow:hidden;transition:.2s}
+.card:hover{transform:translateY(-6px);border-color:#fff}
+.card img{width:100%;height:260px;object-fit:cover;background:#222}
+.info{padding:12px} .info h3{font-size:14px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.meta{display:flex;justify-content:space-between;margin-top:8px;align-items:center}
+.cat{font-size:11px;opacity:.5} .tag{font-size:10px;background:#fff;color:#000;padding:3px 10px;border-radius:20px;font-weight:900}
+</style>
 </head>
 <body>
-<header><div class="logo">NOVA<b>.ANIME</b></div></header>
-<div class="search"><input id="s" placeholder="قلب على انمي..." oninput="filterA()"></div>
+<header><div class="logo">NOVA<b>ANIME</b></div><div style="font-weight:700">50 انمي</div></header>
+<div class="hero"><h1>أفضل 50 انمي مشهور</h1><p>اكشن • ايسيكاي • مغامرات • رعب • كوميديا • شونين</p></div>
+<div class="cats" id="cats">
+<button class="active" onclick="filterCat('الكل')">الكل (50)</button>
+<button onclick="filterCat('اكشن')">اكشن</button>
+<button onclick="filterCat('ايسيكاي')">ايسيكاي</button>
+<button onclick="filterCat('مغامرات')">مغامرات</button>
+<button onclick="filterCat('شونين')">شونين</button>
+<button onclick="filterCat('رعب')">رعب</button>
+<button onclick="filterCat('كوميديا')">كوميديا</button>
+</div>
+<div class="search"><input id="s" placeholder="قلب: One Piece, Berserk, Naruto..." oninput="doFilter()"></div>
 <div class="grid" id="grid"></div>
 <script>
-const animes=[{name:"One Piece",img:"https://cdn.myanimelist.net/images/anime/6/73245.jpg",desc:"لوفي والون بيس"},{name:"Berserk",img:"https://cdn.myanimelist.net/images/anime/1384/121669.jpg",desc:"غاتس والانتقام"},{name:"Boruto",img:"https://cdn.myanimelist.net/images/anime/1096/136029.jpg",desc:"ابن ناروتو"},{name:"Naruto",img:"https://cdn.myanimelist.net/images/anime/13/17405.jpg",desc:"ناروتو"},{name:"Attack on Titan",img:"https://cdn.myanimelist.net/images/anime/10/47347.jpg",desc:"العمالقة"}];
-function render(l){let g=document.getElementById('grid');g.innerHTML='';l.forEach(a=>{g.innerHTML+=`<div class=card><img src=${a.img}><div class=info><h4>${a.name}</h4><p>${a.desc}</p><span class=tag>HD</span></div></div>`})}render(animes);function filterA(){let q=document.getElementById('s').value.toLowerCase();render(animes.filter(a=>a.name.toLowerCase().includes(q)))}
+const animes=[{name:"One Piece",cat:"مغامرات",img:"https://cdn.myanimelist.net/images/anime/6/73245.jpg"},{name:"Berserk",cat:"اكشن",img:"https://cdn.myanimelist.net/images/anime/1384/121669.jpg"},{name:"Naruto Shippuden",cat:"شونين",img:"https://cdn.myanimelist.net/images/anime/13/17405.jpg"},{name:"Attack on Titan",cat:"اكشن",img:"https://cdn.myanimelist.net/images/anime/10/47347.jpg"},{name:"Demon Slayer",cat:"اكشن",img:"https://cdn.myanimelist.net/images/anime/1286/99889.jpg"},{name:"Jujutsu Kaisen",cat:"اكشن",img:"https://cdn.myanimelist.net/images/anime/15/92034.jpg"},{name:"Solo Leveling",cat:"اكشن",img:"https://cdn.myanimelist.net/images/anime/1925/148921.jpg"},{name:"Bleach",cat:"شونين",img:"https://cdn.myanimelist.net/images/anime/3/40451.jpg"},{name:"Dragon Ball Z",cat:"شونين",img:"https://cdn.myanimelist.net/images/anime/6/20936.jpg"},{name:"Hunter x Hunter",cat:"مغامرات",img:"https://cdn.myanimelist.net/images/anime/11/33657.jpg"},{name:"Re:Zero",cat:"ايسيكاي",img:"https://cdn.myanimelist.net/images/anime/1522/128039.jpg"},{name:"Mushoku Tensei",cat:"ايسيكاي",img:"https://cdn.myanimelist.net/images/anime/1028/117629.jpg"},{name:"Slime",cat:"ايسيكاي",img:"https://cdn.myanimelist.net/images/anime/1140/122071.jpg"},{name:"Overlord",cat:"ايسيكاي",img:"https://cdn.myanimelist.net/images/anime/79/104892.jpg"},{name:"Sword Art Online",cat:"ايسيكاي",img:"https://cdn.myanimelist.net/images/anime/11/39717.jpg"},{name:"One Punch Man",cat:"كوميديا",img:"https://cdn.myanimelist.net/images/anime/12/76049.jpg"},{name:"Gintama",cat:"كوميديا",img:"https://cdn.myanimelist.net/images/anime/4/10508.jpg"},{name:"KonoSuba",cat:"ايسيكاي",img:"https://cdn.myanimelist.net/images/anime/2/112300.jpg"},{name:"Death Note",cat:"رعب",img:"https://cdn.myanimelist.net/images/anime/9/9453.jpg"},{name:"Tokyo Ghoul",cat:"رعب",img:"https://cdn.myanimelist.net/images/anime/5/64449.jpg"},{name:"Chainsaw Man",cat:"اكشن",img:"https://cdn.myanimelist.net/images/anime/1365/135695.jpg"},{name:"Vinland Saga",cat:"مغامرات",img:"https://cdn.myanimelist.net/images/anime/1500/138721.jpg"},{name:"Fullmetal Alchemist",cat:"اكشن",img:"https://cdn.myanimelist.net/images/anime/1223/96541.jpg"},{name:"My Hero Academia",cat:"شونين",img:"https://cdn.myanimelist.net/images/anime/17/92357.jpg"},{name:"Black Clover",cat:"شونين",img:"https://cdn.myanimelist.net/images/anime/5/75639.jpg"},{name:"Fairy Tail",cat:"مغامرات",img:"https://cdn.myanimelist.net/images/anime/5/18179.jpg"},{name:"Spy x Family",cat:"كوميديا",img:"https://cdn.myanimelist.net/images/anime/7/123425.jpg"},{name:"Dr. Stone",cat:"مغامرات",img:"https://cdn.myanimelist.net/images/anime/6/103165.jpg"},{name:"Haikyuu!!",cat:"شونين",img:"https://cdn.myanimelist.net/images/anime/4/105977.jpg"},{name:"Parasyte",cat:"رعب",img:"https://cdn.myanimelist.net/images/anime/7/48549.jpg"},{name:"Cowboy Bebop",cat:"اكشن",img:"https://cdn.myanimelist.net/images/anime/1/4.jpg"},{name:"Boruto",cat:"شونين",img:"https://cdn.myanimelist.net/images/anime/1096/136029.jpg"},{name:"JoJo",cat:"اكشن",img:"https://cdn.myanimelist.net/images/anime/2/48813.jpg"},{name:"Mob Psycho 100",cat:"اكشن",img:"https://cdn.myanimelist.net/images/anime/10/76712.jpg"},{name:"No Game No Life",cat:"ايسيكاي",img:"https://cdn.myanimelist.net/images/anime/3/42387.jpg"},{name:"Steins;Gate",cat:"مغامرات",img:"https://cdn.myanimelist.net/images/anime/5/73199.jpg"},{name:"Code Geass",cat:"اكشن",img:"https://cdn.myanimelist.net/images/anime/5/50331.jpg"},{name:"Frieren",cat:"مغامرات",img:"https://cdn.myanimelist.net/images/anime/16/141217.jpg"}];
+let cur='الكل';
+function render(list){let g=document.getElementById('grid');g.innerHTML='';list.forEach(a=>{g.innerHTML+=`<div class="card"><img src="${a.img}" loading="lazy"><div class="info"><h3>${a.name}</h3><div class="meta"><span class="cat">${a.cat}</span><span class="tag">HD</span></div></div></div>`});}
+function filterCat(c){cur=c;document.querySelectorAll('.cats button').forEach(b=>b.classList.toggle('active',b.textContent.includes(c)));doFilter();}
+function doFilter(){let q=document.getElementById('s').value.toLowerCase();let f=animes.filter(a=>{let mCat=cur==='الكل'||a.cat===cur;let mSearch=a.name.toLowerCase().includes(q)||a.cat.includes(q);return mCat&&mSearch;});render(f);}
+render(animes);
 </script>
 </body>
 </html>
