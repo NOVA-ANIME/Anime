@@ -1,51 +1,44 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ANIMORA - افضل موقع انمي</title>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Cairo',sans-serif}
-body{background:#08080f;color:#fff}
-header{position:sticky;top:0;z-index:100;background:rgba(8,8,15,0.9);backdrop-filter:blur(10px);display:flex;justify-content:space-between;align-items:center;padding:14px 4%;border-bottom:1px solid #1f1f2e}
-.logo{font-size:28px;font-weight:900}.logo b{color:#a78bfa}
-.search-wrap{width:92%;margin:20px auto;background:#15151f;border:1px solid #2a2a3a;border-radius:30px;display:flex;align-items:center;padding:10px 20px}
-.search-wrap input{flex:1;background:transparent;border:none;color:#fff;outline:none}
-.hero{width:92%;margin:20px auto;height:380px;border-radius:20px;background:linear-gradient(90deg,rgba(0,0,0,0.85),rgba(0,0,0,0.1)),url('https://cdn.myanimelist.net/images/anime/1015/138006.jpg');background-size:cover;background-position:center;display:flex;align-items:end;padding:30px}
-.btns{margin-top:15px;display:flex;gap:10px}.btn{padding:12px 24px;border-radius:12px;border:none;font-weight:700;cursor:pointer}.btn-p{background:#a78bfa;color:#000}.btn-s{background:rgba(255,255,255,0.15);color:#fff}
-.cats{width:92%;margin:20px auto;display:flex;gap:10px;overflow-x:auto}.cat{white-space:nowrap;padding:8px 18px;border-radius:20px;background:#15151f;border:1px solid #2a2a3a;cursor:pointer;font-size:13px}.cat.active{background:#a78bfa;color:#000}
-.grid{width:92%;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px;padding-bottom:40px}
-.card{background:#12121a;border-radius:14px;overflow:hidden;cursor:pointer;transition:0.3s;border:1px solid #1e1e2e}.card:hover{transform:translateY(-5px);border-color:#a78bfa}
-.card img{width:100%;height:230px;object-fit:cover}.card-info{padding:10px}.card-info h4{font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.card-info span{font-size:11px;opacity:0.5}
-#player{position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:999;display:none;align-items:center;justify-content:center;padding:20px}#player.active{display:flex}.player-box{width:100%;max-width:900px;background:#0f0f17;border-radius:16px;overflow:hidden}.player-box iframe{width:100%;height:480px;border:none}
-</style>
-</head>
-<body>
-<header><div class="logo">ANIMORA<b>.IO</b></div><div>الرئيسية • افلام • المفضلة</div></header>
-<div class="search-wrap"><input id="search" placeholder="ابحث عن 1000+ انمي..." oninput="filterAnime()"><span>🔍</span></div>
-<div class="hero"><div><span style="background:#a78bfa;color:#000;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:700">الأكثر مشاهدة 🔥</span><h1 style="font-size:42px;line-height:1;margin-top:10px">FRIEREN<br>BEYOND JOURNEY</h1><div class="btns"><button class="btn btn-p" onclick="playAnime('Frieren')">▶ شاهد الان</button><button class="btn btn-s">التفاصيل</button></div></div></div>
-<div class="cats"><div class="cat active">الكل</div><div class="cat">اكشن</div><div class="cat">رومانسي</div><div class="cat">شونين</div></div>
-<div class="grid" id="grid"></div>
-<div id="player" onclick="closePlayer()"><div class="player-box" onclick="event.stopPropagation()"><iframe id="videoFrame" src="" allowfullscreen></iframe><div style="padding:15px;display:flex;justify-content:space-between"><h3 id="playerTitle"></h3><button onclick="closePlayer()" style="background:#a78bfa;border:none;padding:6px 14px;border-radius:8px;cursor:pointer">اغلاق ✕</button></div></div></div>
 <script>
 const animes=[
 {name:"Attack on Titan",img:"https://cdn.myanimelist.net/images/anime/10/47347.jpg"},
 {name:"Demon Slayer",img:"https://cdn.myanimelist.net/images/anime/1286/99889.jpg"},
+{name:"Jujutsu Kaisen",img:"https://cdn.myanimelist.net/images/anime/1792/138022.jpg"},
 {name:"One Piece",img:"https://cdn.myanimelist.net/images/anime/6/73245.jpg"},
-{name:"Naruto Shippuden",img:"https://cdn.myanimelist.net/images/anime/5/17407.jpg"},
-{name:"Spy x Family",img:"https://cdn.myanimelist.net/images/anime/1441/122444.jpg"},
+{name:"Naruto",img:"https://cdn.myanimelist.net/images/anime/5/17407.jpg"},
 {name:"Solo Leveling",img:"https://cdn.myanimelist.net/images/anime/1925/140553.jpg"},
 {name:"Frieren",img:"https://cdn.myanimelist.net/images/anime/1015/138006.jpg"},
-{name:"Jujutsu Kaisen",img:"https://cdn.myanimelist.net/images/anime/1792/138022.jpg"},
+{name:"Spy x Family",img:"https://cdn.myanimelist.net/images/anime/1441/122444.jpg"},
 {name:"Chainsaw Man",img:"https://cdn.myanimelist.net/images/anime/1806/126216.jpg"},
-{name:"Bleach TYBW",img:"https://cdn.myanimelist.net/images/anime/1908/135431.jpg"}
+{name:"Death Note",img:"https://cdn.myanimelist.net/images/anime/9/9453.jpg"},
+{name:"Fullmetal Alchemist",img:"https://cdn.myanimelist.net/images/anime/1208/94745.jpg"},
+{name:"One Punch Man",img:"https://cdn.myanimelist.net/images/anime/12/76049.jpg"},
+{name:"My Hero Academia",img:"https://cdn.myanimelist.net/images/anime/10/78745.jpg"},
+{name:"Tokyo Ghoul",img:"https://cdn.myanimelist.net/images/anime/11/70410.jpg"},
+{name:"Hunter x Hunter",img:"https://cdn.myanimelist.net/images/anime/11/33657.jpg"},
+{name:"Dragon Ball Z",img:"https://cdn.myanimelist.net/images/anime/6/20936.jpg"},
+{name:"Bleach TYBW",img:"https://cdn.myanimelist.net/images/anime/1908/135431.jpg"},
+{name:"Black Clover",img:"https://cdn.myanimelist.net/images/anime/2/88336.jpg"},
+{name:"Vinland Saga",img:"https://cdn.myanimelist.net/images/anime/1500/103005.jpg"},
+{name:"Tokyo Revengers",img:"https://cdn.myanimelist.net/images/anime/6/110771.jpg"},
+{name:"Kimetsu No Yaiba",img:"https://cdn.myanimelist.net/images/anime/1286/99889.jpg"},
+{name:"Naruto Shippuden",img:"https://cdn.myanimelist.net/images/anime/5/17407.jpg"},
+{name:"Haikyuu",img:"https://cdn.myanimelist.net/images/anime/7/76014.jpg"},
+{name:"Detective Conan",img:"https://cdn.myanimelist.net/images/anime/7/75199.jpg"},
+{name:"Sword Art Online",img:"https://cdn.myanimelist.net/images/anime/11/39717.jpg"},
+{name:"Re:Zero",img:"https://cdn.myanimelist.net/images/anime/1522/128039.jpg"},
+{name:"Steins;Gate",img:"https://cdn.myanimelist.net/images/anime/5/73199.jpg"},
+{name:"Code Geass",img:"https://cdn.myanimelist.net/images/anime/5/50331.jpg"},
+{name:"Gintama",img:"https://cdn.myanimelist.net/images/anime/3/72078.jpg"},
+{name:"Mushoku Tensei",img:"https://cdn.myanimelist.net/images/anime/1806/126216.jpg"},
+{name:"Dandadan",img:"https://cdn.myanimelist.net/images/anime/1806/126216.jpg"},
+{name:"Kaiju No.8",img:"https://cdn.myanimelist.net/images/anime/1015/138006.jpg"},
+{name:"Mashle",img:"https://cdn.myanimelist.net/images/anime/1792/138022.jpg"},
+{name:"Blue Lock",img:"https://cdn.myanimelist.net/images/anime/1441/122444.jpg"},
+{name:"Dr Stone",img:"https://cdn.myanimelist.net/images/anime/10/47347.jpg"},
+{name:"Fire Force",img:"https://cdn.myanimelist.net/images/anime/6/73245.jpg"},
+{name:"Mob Psycho 100",img:"https://cdn.myanimelist.net/images/anime/12/76049.jpg"},
+{name:"Overlord",img:"https://cdn.myanimelist.net/images/anime/10/78745.jpg"},
+{name:"That Time I Got Reincarnated as a Slime",img:"https://cdn.myanimelist.net/images/anime/11/70410.jpg"},
+{name:"Oshi No Ko",img:"https://cdn.myanimelist.net/images/anime/11/33657.jpg"}
 ];
-function render(list){const g=document.getElementById('grid');g.innerHTML='';list.forEach(a=>{g.innerHTML+=`<div class="card" onclick="playAnime('${a.name}')"><img src="${a.img}"><div class="card-info"><h4>${a.name}</h4><span>HD • مترجم</span></div></div>`})}
-function filterAnime(){const q=document.getElementById('search').value.toLowerCase();render(animes.filter(a=>a.name.toLowerCase().includes(q)))}
-function playAnime(t){document.getElementById('player').classList.add('active');document.getElementById('playerTitle').innerText=t;document.getElementById('videoFrame').src="https://www.youtube.com/embed/5i8T8JgK9wQ?autoplay=1"}
-function closePlayer(){document.getElementById('player').classList.remove('active');document.getElementById('videoFrame').src=""}
-render(animes);
 </script>
-</body>
-</html>
