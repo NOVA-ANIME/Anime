@@ -3,51 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>تصاور NOVA</title>
+<title>NOVA FINAL</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:sans-serif}
-body{background:#000;color:#fff;padding:20px}
-h1{text-align:center;margin:20px;font-size:30px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
-.card{background:#111;border-radius:12px;overflow:hidden;border:1px solid #333}
-.card img{width:100%;height:220px;object-fit:cover;display:block}
-.card p{text-align:center;padding:8px;font-size:13px;font-weight:700}
+body{background:#000;color:#fff;font-family:sans-serif;margin:0;padding:15px}
+h1{text-align:center;padding:20px}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+@media(min-width:600px){.grid{grid-template-columns:repeat(4,1fr)}}
+.card{background:#111;border-radius:12px;overflow:hidden;border:1px solid #222}
+.card img{width:100%;height:230px;object-fit:cover}
+.card div{padding:8px;text-align:center;font-weight:700}
 </style>
 </head>
 <body>
-<h1>🎨 تصاور NOVA ANIME</h1>
+<h1>NOVA ANIME - تصاور خدامين</h1>
 <div class="grid">
-
-<div class="card">
-<img src="./images/onepiece.jpg" alt="One Piece">
-<p>One Piece</p>
-</div>
-
-<div class="card">
-<img src="./images/naruto.jpg" alt="Naruto">
-<p>Naruto</p>
-</div>
-
-<div class="card">
-<img src="./images/berserk.jpg" alt="Berserk">
-<p>Berserk</p>
-</div>
-
-<div class="card">
-<img src="./images/attack.jpg" alt="Attack">
-<p>Attack on Titan</p>
-</div>
-
-<div class="card">
-<img src="./images/demon.jpg" alt="Demon">
-<p>Demon Slayer</p>
-</div>
-
-<div class="card">
-<img src="./images/jujutsu.jpg" alt="Jujutsu">
-<p>Jujutsu Kaisen</p>
-</div>
-
+<div class="card"><img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400"><div>One Piece</div></div>
+<div class="card"><img src="https://images.unsplash.com/photo-1601850494422-3cf14624b01b?w=400"><div>Naruto</div></div>
+<div class="card"><img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=400"><div>Berserk</div></div>
+<div class="card"><img src="https://images.unsplash.com/photo-1531259683007-016a7bbe742f?w=400"><div>Attack on Titan</div></div>
+<div class="card"><img src="https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?w=400"><div>Demon Slayer</div></div>
+<div class="card"><img src="https://images.unsplash.com/photo-1618336753974-aae8e04506aa?w=400"><div>Jujutsu Kaisen</div></div>
 </div>
 </body>
 </html>
