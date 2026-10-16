@@ -116,7 +116,75 @@ document.getElementById('grid').innerHTML=list.map((a,i)=>`
 <img src="${a.img}" alt="${a.name}" loading="lazy" onerror="this.src='https://via.placeholder.com/400x600/111/fff?text=${a.name}'">
 <div class="info"><h3>${a.name}</h3><div class="meta"><span class="cat">${a.cat}</span></div></div>
 </div>`).join('');
-}
+}const p = u => `https://wsrv.nl/?url=${encodeURIComponent(u)}&w=400&h=600&fit=cover&output=webp`;
+const animes=[
+// اكشن - 10
+{name:"Attack on Titan",cat:"اكشن",img:p("https://cdn.myanimelist.net/images/anime/10/47347.jpg")},
+{name:"Jujutsu Kaisen",cat:"اكشن",img:p("https://cdn.myanimelist.net/images/anime/1171/109222.jpg")},
+{name:"Demon Slayer",cat:"اكشن",img:p("https://cdn.myanimelist.net/images/anime/1286/99889.jpg")},
+{name:"Solo Leveling",cat:"اكشن",img:p("https://cdn.myanimelist.net/images/anime/1929/144919.jpg")},
+{name:"Chainsaw Man",cat:"اكشن",img:p("https://cdn.myanimelist.net/images/anime/1806/126216.jpg")},
+{name:"One Punch Man",cat:"اكشن",img:p("https://cdn.myanimelist.net/images/anime/12/76049.jpg")},
+{name:"Cowboy Bebop",cat:"اكشن",img:p("https://cdn.myanimelist.net/images/anime/4/19644.jpg")},
+{name:"Berserk",cat:"اكشن",img:p("https://cdn.myanimelist.net/images/anime/10/79352.jpg")},
+{name:"Bleach",cat:"اكشن",img:p("https://cdn.myanimelist.net/images/anime/3/40451.jpg")},
+{name:"Mob Psycho 100",cat:"اكشن",img:p("https://cdn.myanimelist.net/images/anime/5/82897.jpg")},
+// غموض - 10
+{name:"Monster",cat:"غموض",img:p("https://cdn.myanimelist.net/images/anime/3/73227.jpg")},
+{name:"Death Note",cat:"غموض",img:p("https://cdn.myanimelist.net/images/anime/9/9453.jpg")},
+{name:"Steins;Gate",cat:"غموض",img:p("https://cdn.myanimelist.net/images/anime/5/73199.jpg")},
+{name:"Erased",cat:"غموض",img:p("https://cdn.myanimelist.net/images/anime/10/78745.jpg")},
+{name:"The Promised Neverland",cat:"غموض",img:p("https://cdn.myanimelist.net/images/anime/5/97746.jpg")},
+{name:"Another",cat:"غموض",img:p("https://cdn.myanimelist.net/images/anime/3/75509.jpg")},
+{name:"ID:Invaded",cat:"غموض",img:p("https://cdn.myanimelist.net/images/anime/1862/109200.jpg")},
+{name:"Odd Taxi",cat:"غموض",img:p("https://cdn.myanimelist.net/images/anime/1143/117444.jpg")},
+{name:"Hyoka",cat:"غموض",img:p("https://cdn.myanimelist.net/images/anime/13/50521.jpg")},
+{name:"Psycho-Pass",cat:"غموض",img:p("https://cdn.myanimelist.net/images/anime/5/43399.jpg")},
+// ايسيكاي - 10
+{name:"Re:Zero",cat:"ايسيكاي",img:p("https://cdn.myanimelist.net/images/anime/1522/128039.jpg")},
+{name:"Mushoku Tensei",cat:"ايسيكاي",img:p("https://cdn.myanimelist.net/images/anime/1028/117777.jpg")},
+{name:"No Game No Life",cat:"ايسيكاي",img:p("https://cdn.myanimelist.net/images/anime/5/65187.jpg")},
+{name:"Overlord",cat:"ايسيكاي",img:p("https://cdn.myanimelist.net/images/anime/4/72270.jpg")},
+{name:"Slime",cat:"ايسيكاي",img:p("https://cdn.myanimelist.net/images/anime/13/83931.jpg")},
+{name:"Sword Art Online",cat:"ايسيكاي",img:p("https://cdn.myanimelist.net/images/anime/11/39717.jpg")},
+{name:"Konosuba",cat:"ايسيكاي",img:p("https://cdn.myanimelist.net/images/anime/8/78761.jpg")},
+{name:"Shield Hero",cat:"ايسيكاي",img:p("https://cdn.myanimelist.net/images/anime/3/81982.jpg")},
+{name:"That Time Slime",cat:"ايسيكاي",img:p("https://cdn.myanimelist.net/images/anime/13/83931.jpg")},
+{name:"Saga of Tanya",cat:"ايسيكاي",img:p("https://cdn.myanimelist.net/images/anime/1130/88258.jpg")},
+// شونين - 10
+{name:"One Piece",cat:"شونين",img:p("https://cdn.myanimelist.net/images/anime/1244/138851.jpg")},
+{name:"Naruto",cat:"شونين",img:p("https://cdn.myanimelist.net/images/anime/13/17405.jpg")},
+{name:"Dragon Ball Z",cat:"شونين",img:p("https://cdn.myanimelist.net/images/anime/7/20310.jpg")},
+{name:"My Hero Academia",cat:"شونين",img:p("https://cdn.myanimelist.net/images/anime/10/78745.jpg")},
+{name:"Black Clover",cat:"شونين",img:p("https://cdn.myanimelist.net/images/anime/2/88336.jpg")},
+{name:"Hunter x Hunter",cat:"شونين",img:p("https://cdn.myanimelist.net/images/anime/1337/99013.jpg")},
+{name:"Boruto",cat:"شونين",img:p("https://cdn.myanimelist.net/images/anime/1096/101356.jpg")},
+{name:"JoJo",cat:"شونين",img:p("https://cdn.myanimelist.net/images/anime/3/40465.jpg")},
+{name:"Haikyuu",cat:"شونين",img:p("https://cdn.myanimelist.net/images/anime/7/76014.jpg")},
+{name:"Gintama",cat:"شونين",img:p("https://cdn.myanimelist.net/images/anime/3/72078.jpg")},
+// رعب - 10
+{name:"Tokyo Ghoul",cat:"رعب",img:p("https://cdn.myanimelist.net/images/anime/5/64449.jpg")},
+{name:"Higurashi",cat:"رعب",img:p("https://cdn.myanimelist.net/images/anime/6/78100.jpg")},
+{name:"Shiki",cat:"رعب",img:p("https://cdn.myanimelist.net/images/anime/12/52061.jpg")},
+{name:"Parasyte",cat:"رعب",img:p("https://cdn.myanimelist.net/images/anime/9/67876.jpg")},
+{name:"Hell's Paradise",cat:"رعب",img:p("https://cdn.myanimelist.net/images/anime/1410/136158.jpg")},
+{name:"Mieruko-chan",cat:"رعب",img:p("https://cdn.myanimelist.net/images/anime/1271/118714.jpg")},
+{name:"Elfen Lied",cat:"رعب",img:p("https://cdn.myanimelist.net/images/anime/4/19644.jpg")},
+{name:"Corpse Party",cat:"رعب",img:p("https://cdn.myanimelist.net/images/anime/10/33943.jpg")},
+{name:"Uzumaki",cat:"رعب",img:p("https://cdn.myanimelist.net/images/anime/1154/145841.jpg")},
+{name:"Junji Ito",cat:"رعب",img:p("https://cdn.myanimelist.net/images/anime/1013/112180.jpg")},
+// مغامرات وكوميديا - 10
+{name:"Frieren",cat:"مغامرات",img:p("https://cdn.myanimelist.net/images/anime/1127/142324.jpg")},
+{name:"Vinland Saga",cat:"مغامرات",img:p("https://cdn.myanimelist.net/images/anime/1500/103360.jpg")},
+{name:"Fullmetal Alchemist",cat:"مغامرات",img:p("https://cdn.myanimelist.net/images/anime/1223/96541.jpg")},
+{name:"Dr. Stone",cat:"مغامرات",img:p("https://cdn.myanimelist.net/images/anime/5/82448.jpg")},
+{name:"Your Name",cat:"مغامرات",img:p("https://cdn.myanimelist.net/images/anime/5/87048.jpg")},
+{name:"Spy x Family",cat:"كوميديا",img:p("https://cdn.myanimelist.net/images/anime/1441/122795.jpg")},
+{name:"Gintama",cat:"كوميديا",img:p("https://cdn.myanimelist.net/images/anime/3/72078.jpg")},
+{name:"One Punch Man",cat:"كوميديا",img:p("https://cdn.myanimelist.net/images/anime/12/76049.jpg")},
+{name:"Konosuba",cat:"كوميديا",img:p("https://cdn.myanimelist.net/images/anime/8/78761.jpg")},
+{name:"Code Geass",cat:"مغامرات",img:p("https://cdn.myanimelist.net/images/anime/5/50331.jpg")},
+];
 initCats();filt();
 </script>
 </body>
